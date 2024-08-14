@@ -70,4 +70,18 @@ Body:
 	{
 		"^campo^": ^insert^
 	}
-/*=v================================={POSTMAN}=================================v=*/}
+/*=^================================={POSTMAN}=================================^=*/}
+/*=v=========================={application.poperties}==========================v=*/{
+spring.application.name=orcamento
+
+# Configuracao banco de dados MySQL
+spring.jpa.database=MYSQL
+spring.datasource.url=jdbc:mysql://localhost:3306/orcamento?createDatabaseIfNotExist=true&useSSL=false&ServerTimezone=America/Sao_Paulo
+spring.datasource.username=root
+spring.datasource.password=
+spring.flyway.baseline-on-migration=true
+
+
+# Configuracao do Hibernate
+spring.jpa.show-sql=true
+/*=^=========================={application.poperties}==========================^=*/}

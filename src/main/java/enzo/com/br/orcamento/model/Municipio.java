@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Table(name = "Municipio")
+@Table(name = "municipio")
 public class Municipio {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -15,7 +15,7 @@ public class Municipio {
     private String nome;
     private String estado;
 
-    @OneToMany(mappedBy = "^tabela_pai^")
+    @OneToMany(mappedBy = "municipio")
     private List<Cliente> clienteLista = new ArrayList<>();
 
     // GETTER AND SETTER
