@@ -15,7 +15,18 @@ import org.springframework.web.bind.annotation.RestController;
 public class ClienteController {
     @Autowired
     private ClienteService clienteService;
+    @Autowired
+    private ClienteRepository clienteRepository;
 
+    @GetMapping
+    public List<Cliente> listarTodasCliente() {
+        return clienteRepository.findAll(Sort.by("__campo__").ascending());
+    }
+    @GetMapping("/{id}")
+    public ResponseEntity<Cliente> buscarPeloCodigo(@PathVariable int id){
+        Optional<Cliente> cliente = clienteRepository.findById(id);
+        return cliente.isPresent() ? ResponseEntity.ok(cliente.get()) : ResponseEntity.notFound().build();
+    }
     @PostMapping()
     public ResponseEntity<Cliente> inserir(@RequestBody Cliente cliente){
         Cliente clienteSalva = clienteService.salvar(cliente);
