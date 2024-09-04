@@ -1,14 +1,16 @@
 package enzo.com.br.orcamento.controllers;
 
 import enzo.com.br.orcamento.model.Cliente;
+import enzo.com.br.orcamento.repositories.ClienteRepository;
 import enzo.com.br.orcamento.services.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/clientes")
@@ -20,10 +22,10 @@ public class ClienteController {
 
     @GetMapping
     public List<Cliente> listarTodasCliente() {
-        return clienteRepository.findAll(Sort.by("__campo__").ascending());
+        return clienteRepository.findAll(Sort.by("name").ascending());
     }
     @GetMapping("/{id}")
-    public ResponseEntity<Cliente> buscarPeloCodigo(@PathVariable int id){
+    public ResponseEntity<Cliente> buscarPeloCodigo(@PathVariable long id){
         Optional<Cliente> cliente = clienteRepository.findById(id);
         return cliente.isPresent() ? ResponseEntity.ok(cliente.get()) : ResponseEntity.notFound().build();
     }

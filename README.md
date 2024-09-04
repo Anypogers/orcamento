@@ -102,16 +102,21 @@ public class __Tabela__Service {
 ___
 # postman
 ### POST
+
+`localhost:8080/__tabela__`
+
+`Body (Raw --- JSON):`
 ```
-localhost:8080/__tabela__
-Body (Raw --- JSON):
-	{
-		"__campo__": __VALOR__
-	}
+{
+    "__campo__": __VALOR__
+}
 ```
 ### GET
 ```
 localhost:8080/__tabela__
+```
+```
+localhost:8080/__tabela__/__id__
 ```
 ___
 # properties

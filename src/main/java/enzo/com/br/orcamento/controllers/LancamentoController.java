@@ -22,7 +22,7 @@ public class LancamentoController {
 
     @GetMapping
     public List<Lancamento> listarTodasLancamento() {
-        return lancamentoRepository.findAll(Sort.by("__campo__").ascending());
+        return lancamentoRepository.findAll(Sort.by("datalancamento").ascending());
     }
     @GetMapping("/{id}")
     public ResponseEntity<Lancamento> buscarPeloCodigo(@PathVariable long id){
