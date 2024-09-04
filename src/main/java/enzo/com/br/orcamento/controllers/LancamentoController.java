@@ -25,7 +25,7 @@ public class LancamentoController {
         return lancamentoRepository.findAll(Sort.by("datalancamento").ascending());
     }
     @GetMapping("/{id}")
-    public ResponseEntity<Lancamento> buscarPeloCodigo(@PathVariable long id){
+    public ResponseEntity<Lancamento> buscarPeloCodigo(@PathVariable Long id){
         Optional<Lancamento> lancamento = lancamentoRepository.findById(id);
         return lancamento.isPresent() ? ResponseEntity.ok(lancamento.get()) : ResponseEntity.notFound().build();
     }

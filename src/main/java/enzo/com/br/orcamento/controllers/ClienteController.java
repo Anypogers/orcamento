@@ -25,7 +25,7 @@ public class ClienteController {
         return clienteRepository.findAll(Sort.by("name").ascending());
     }
     @GetMapping("/{id}")
-    public ResponseEntity<Cliente> buscarPeloCodigo(@PathVariable long id){
+    public ResponseEntity<Cliente> buscarPeloCodigo(@PathVariable Long id){
         Optional<Cliente> cliente = clienteRepository.findById(id);
         return cliente.isPresent() ? ResponseEntity.ok(cliente.get()) : ResponseEntity.notFound().build();
     }
