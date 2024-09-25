@@ -3,6 +3,8 @@ package enzo.com.br.orcamento.repositories.filter;
 public class MunicipioFilter {
     private String nome;
 
+    private String estado;
+
     // GETTERS AND SETTERS
     public String getNome() {
         return nome;
@@ -10,5 +12,13 @@ public class MunicipioFilter {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
     }
 }

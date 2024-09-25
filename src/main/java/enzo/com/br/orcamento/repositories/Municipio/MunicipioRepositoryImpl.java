@@ -28,7 +28,7 @@ public class MunicipioRepositoryImpl implements MunicipioRepositoryQuery{
 
       Predicate[] predicates = criarRestricoes(municipioFilter, builder, root);
       criteria.where(predicates);
-      criteria.orderBy(builder.asc(root.get("nome")));
+      criteria.orderBy(builder.asc(root.get("estado")),builder.asc(root.get("nome")));
 
       TypedQuery<Municipio> query = manager.createQuery(criteria);
       adicionarRestricoesPaginacao(query, pageable);
@@ -48,16 +48,19 @@ public class MunicipioRepositoryImpl implements MunicipioRepositoryQuery{
   }
 
   private void adicionarRestricoesPaginacao(TypedQuery<Municipio> query, Pageable pageable) {
-      int paginalAtual = pageable.getPageNumber();
-      int totalRegistrosPorPagina = pageable.getPageSize();
-      int primeiroRegistroDaPagina = paginalAtual * totalRegistrosPorPagina;
+    int paginalAtual = pageable.getPageNumber();
+    int totalRegistrosPorPagina = pageable.getPageSize();
+    int primeiroRegistroDaPagina = paginalAtual * totalRegistrosPorPagina;
 
-      query.setFirstResult(primeiroRegistroDaPagina);
-      query.setMaxResults(totalRegistrosPorPagina);
+    query.setFirstResult(primeiroRegistroDaPagina);
+    query.setMaxResults(totalRegistrosPorPagina);
   }
 
   private Predicate[] criarRestricoes(MunicipioFilter municipioFilter, CriteriaBuilder builder, Root<Municipio> root){
       List<Predicate> predicates = new ArrayList<>();
+      if (!StringUtils.isEmpty(municipioFilter.getEstado())) {
+        predicates.add(builder.like(builder.lower(root.get("estado")), "%" + municipioFilter.getEstado().toLowerCase() + "%"));
+      }
       if (!StringUtils.isEmpty(municipioFilter.getNome())) {
           predicates.add(builder.like(builder.lower(root.get("nome")), "%" + municipioFilter.getNome().toLowerCase() + "%"));
       }
