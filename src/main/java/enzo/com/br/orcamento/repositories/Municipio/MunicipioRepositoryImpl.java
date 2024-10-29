@@ -1,7 +1,7 @@
 package enzo.com.br.orcamento.repositories.Municipio;
 
 import enzo.com.br.orcamento.model.Municipio;
-import enzo.com.br.orcamento.repositories.filter.MunicipioFilter;
+import enzo.com.br.orcamento.repositories.filters.MunicipioFilter;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.TypedQuery;

@@ -32,6 +32,7 @@ main
 |
 +>java
 | +>br.com.§NOME§.§NOMEPROGRAMA§
+| | +>dto
 | | +>controller
 | | +>model
 | | +>repositories
@@ -83,6 +84,22 @@ public class §tabela§Controller {
 }
 ```
 ___
+# dto
+### *Java Class*
+```
+package br.com.enzo.estoque.dto;
+
+import java.math.BigDecimal;
+
+public class ProdutoDto {
+  private §Tipo§ §Campo§
+  
+  // CONSTRUCTOR
+
+  // GETTERS AND SETTERS
+}
+```
+___
 # model
 #### *Java Class*
 ```
@@ -115,7 +132,7 @@ ___
 #### *Interface*
 ```
 @Repository
-public interface §Tabela§Repository extends JpaRepository<§Tabela§, §campoID§> {
+public interface §Tabela§Repository extends JpaRepository<§Tabela§, §campoIDTYPE§>, §Tabela§RepositoryQuery{
 
 }
 ```
@@ -125,7 +142,7 @@ ___
 ```
 public class §Tabela§Filter{
     
-    private §tipo§ §campo§; // Valores que voce quer buscar.
+    private §tipo§ §campo§;
     
     // GETTERS AND SETTERS
 }

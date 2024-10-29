@@ -1,5 +1,6 @@
 package enzo.com.br.orcamento.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -22,6 +23,7 @@ public class Cliente {
     @OneToMany
     private List<Lancamento> lancamentoLista = new ArrayList<>();
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "id_municipio")
     private Municipio municipio;
