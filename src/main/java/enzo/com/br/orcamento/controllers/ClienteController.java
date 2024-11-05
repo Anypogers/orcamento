@@ -15,23 +15,25 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/clientes")
 public class ClienteController {
-    @Autowired
-    private ClienteService clienteService;
-    @Autowired
-    private ClienteRepository clienteRepository;
+  @Autowired
+  private ClienteService clienteService;
+  @Autowired
+  private ClienteRepository clienteRepository;
 
-    @GetMapping
-    public List<Cliente> listarTodasCliente() {
-        return clienteRepository.findAll(Sort.by("name").ascending());
-    }
-    @GetMapping("/{id}")
-    public ResponseEntity<Cliente> buscarPeloCodigo(@PathVariable Long id){
-        Optional<Cliente> cliente = clienteRepository.findById(id);
-        return cliente.isPresent() ? ResponseEntity.ok(cliente.get()) : ResponseEntity.notFound().build();
-    }
-    @PostMapping()
-    public ResponseEntity<Cliente> inserir(@RequestBody Cliente cliente){
-        Cliente clienteSalva = clienteService.salvar(cliente);
-        return ResponseEntity.status(HttpStatus.CREATED).body(clienteSalva);
-    }
+  @GetMapping
+  public List<Cliente> listarTodasCliente() {
+    return clienteRepository.findAll(Sort.by("name").ascending());
+  }
+
+  @GetMapping("/{id}")
+  public ResponseEntity<Cliente> buscarPeloCodigo(@PathVariable Long id) {
+    Optional<Cliente> cliente = clienteRepository.findById(id);
+    return cliente.isPresent() ? ResponseEntity.ok(cliente.get()) : ResponseEntity.notFound().build();
+  }
+
+  @PostMapping()
+  public ResponseEntity<Cliente> inserir(@RequestBody Cliente cliente) {
+    Cliente clienteSalva = clienteService.salvar(cliente);
+    return ResponseEntity.status(HttpStatus.CREATED).body(clienteSalva);
+  }
 }

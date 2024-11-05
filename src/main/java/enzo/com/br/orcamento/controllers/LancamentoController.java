@@ -15,23 +15,25 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/lancamentos")
 public class LancamentoController {
-    @Autowired
-    private LancamentoService lancamentoService;
-    @Autowired
-    private LancamentoRepository lancamentoRepository;
+  @Autowired
+  private LancamentoService lancamentoService;
+  @Autowired
+  private LancamentoRepository lancamentoRepository;
 
-    @GetMapping
-    public List<Lancamento> listarTodasLancamento() {
-        return lancamentoRepository.findAll(Sort.by("datalancamento").ascending());
-    }
-    @GetMapping("/{id}")
-    public ResponseEntity<Lancamento> buscarPeloCodigo(@PathVariable Long id){
-        Optional<Lancamento> lancamento = lancamentoRepository.findById(id);
-        return lancamento.isPresent() ? ResponseEntity.ok(lancamento.get()) : ResponseEntity.notFound().build();
-    }
-    @PostMapping()
-    public ResponseEntity<Lancamento> inserir(@RequestBody Lancamento lancamento){
-        Lancamento lancamentoSalva = lancamentoService.salvar(lancamento);
-        return ResponseEntity.status(HttpStatus.CREATED).body(lancamentoSalva);
-    }
+  @GetMapping
+  public List<Lancamento> listarTodasLancamento() {
+    return lancamentoRepository.findAll(Sort.by("datalancamento").ascending());
+  }
+
+  @GetMapping("/{id}")
+  public ResponseEntity<Lancamento> buscarPeloCodigo(@PathVariable Long id) {
+    Optional<Lancamento> lancamento = lancamentoRepository.findById(id);
+    return lancamento.isPresent() ? ResponseEntity.ok(lancamento.get()) : ResponseEntity.notFound().build();
+  }
+
+  @PostMapping()
+  public ResponseEntity<Lancamento> inserir(@RequestBody Lancamento lancamento) {
+    Lancamento lancamentoSalva = lancamentoService.salvar(lancamento);
+    return ResponseEntity.status(HttpStatus.CREATED).body(lancamentoSalva);
+  }
 }
