@@ -2,7 +2,6 @@ package enzo.com.br.orcamento.repositories.filters;
 
 public class MunicipioFilter {
   private String nome;
-
   private String estado;
 
   // GETTERS AND SETTERS

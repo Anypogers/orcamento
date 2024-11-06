@@ -1,16 +1,20 @@
 package enzo.com.br.orcamento.dto;
 
+import enzo.com.br.orcamento.model.Municipio;
+
 public class ClienteDto {
   private String nome;
   private String endereco;
   private String numero;
   private String bairro;
+  private String municipio;
 
-  public ClienteDto(String nome, String endereco, String numero, String bairro) {
+  public ClienteDto(String nome, String endereco, String numero, String bairro, String municipio) {
     this.nome = nome;
     this.endereco = endereco;
     this.numero = numero;
     this.bairro = bairro;
+    this.municipio = municipio;
   }
 
   public String getNome() {
@@ -43,5 +47,13 @@ public class ClienteDto {
 
   public void setBairro(String bairro) {
     this.bairro = bairro;
+  }
+
+  public String getMunicipio() {
+    return municipio;
+  }
+
+  public void setMunicipio(String municipio) {
+    this.municipio = municipio;
   }
 }

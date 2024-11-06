@@ -1,6 +1,6 @@
 package enzo.com.br.orcamento.repositories.Cliente;
 
-import enzo.com.br.orcamento.model.Cliente;
+import enzo.com.br.orcamento.dto.ClienteDto;
 import enzo.com.br.orcamento.repositories.filters.ClienteFilter;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -22,16 +22,24 @@ public class ClienteRepositoryImpl implements ClienteRepositoryQuery {
   private EntityManager manager;
 
   @Override
-  public Page<Cliente> filtrar(ClienteFilter clienteFilter, Pageable pageable) {
+  public Page<ClienteDto> filtrar(ClienteFilter clienteFilter, Pageable pageable) {
     CriteriaBuilder builder = manager.getCriteriaBuilder();
-    CriteriaQuery<Cliente> criteria = builder.createQuery(Cliente.class);
-    Root<Cliente> root = criteria.from(Cliente.class);
+    CriteriaQuery<ClienteDto> criteria = builder.createQuery(ClienteDto.class);
+    Root<ClienteDto> root = criteria.from(ClienteDto.class);
+
+    criteria.select(builder.construct(ClienteDto.class,
+            root.get("nome"),
+            root.get("endereco"),
+            root.get("numero"),
+            root.get("bairro"),
+            root.get("municipio").get("nome")
+    ));
 
     Predicate[] predicates = criarRestricoes(clienteFilter, builder, root);
     criteria.where(predicates);
     criteria.orderBy(builder.asc(root.get("nome")));
 
-    TypedQuery<Cliente> query = manager.createQuery(criteria);
+    TypedQuery<ClienteDto> query = manager.createQuery(criteria);
     adicionarRestricoesPaginacao(query, pageable);
     return new PageImpl<>(query.getResultList(), pageable, total(clienteFilter));
   }
@@ -39,7 +47,7 @@ public class ClienteRepositoryImpl implements ClienteRepositoryQuery {
   private Long total(ClienteFilter clienteFilter) {
     CriteriaBuilder builder = manager.getCriteriaBuilder();
     CriteriaQuery<Long> criteria = builder.createQuery(Long.class);
-    Root<Cliente> root = criteria.from(Cliente.class);
+    Root<ClienteDto> root = criteria.from(ClienteDto.class);
 
     Predicate[] predicates = criarRestricoes(clienteFilter, builder, root);
     criteria.where(predicates);
@@ -48,7 +56,7 @@ public class ClienteRepositoryImpl implements ClienteRepositoryQuery {
     return manager.createQuery(criteria).getSingleResult();
   }
 
-  private void adicionarRestricoesPaginacao(TypedQuery<Cliente> query, Pageable pageable) {
+  private void adicionarRestricoesPaginacao(TypedQuery<ClienteDto> query, Pageable pageable) {
     int paginalAtual = pageable.getPageNumber();
     int totalRegistrosPorPagina = pageable.getPageSize();
     int primeiroRegistroDaPagina = paginalAtual * totalRegistrosPorPagina;
@@ -57,16 +65,16 @@ public class ClienteRepositoryImpl implements ClienteRepositoryQuery {
     query.setMaxResults(totalRegistrosPorPagina);
   }
 
-  private Predicate[] criarRestricoes(ClienteFilter clienteFilter, CriteriaBuilder builder, Root<Cliente> root) {
+  private Predicate[] criarRestricoes(ClienteFilter clienteFilter, CriteriaBuilder builder, Root<ClienteDto> root) {
     List<Predicate> predicates = new ArrayList<>();
     if (!StringUtils.isEmpty(clienteFilter.getNome())) {
       predicates.add(builder.like(builder.lower(root.get("nome")), "%" + clienteFilter.getNome().toLowerCase() + "%"));
     }
-    if (!StringUtils.isEmpty(clienteFilter.getEndereco())) {
-      predicates.add(builder.like(builder.lower(root.get("endereco")), "%" + clienteFilter.getEndereco().toLowerCase() + "%"));
-    }
     if (!StringUtils.isEmpty(clienteFilter.getBairro())) {
       predicates.add(builder.like(builder.lower(root.get("bairro")), "%" + clienteFilter.getBairro().toLowerCase() + "%"));
+    }
+    if (!StringUtils.isEmpty(clienteFilter.getMunicipio())) {
+      predicates.add(builder.like(builder.lower(root.get("municipio").get("nome")), "%" + clienteFilter.getMunicipio().toLowerCase() + "%"));
     }
     return predicates.toArray(new Predicate[predicates.size()]);
   }
