@@ -20,7 +20,7 @@ public class Cliente {
   private String telefone;
   private String celular;
 
-  @OneToMany
+  @OneToMany(mappedBy = "cliente")
   private List<Lancamento> lancamentoLista = new ArrayList<>();
 
   @JsonIgnore

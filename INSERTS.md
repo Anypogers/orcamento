@@ -1,0 +1,48 @@
+# INSERTS
+___
+
+## Municipio
+```roomsql
+INSERT INTO municipio (nome, estado) VALUES
+('São Paulo', 'SP'),
+('Rio de Janeiro', 'RJ'),
+('Belo Horizonte', 'MG'),
+('Curitiba', 'PR'),
+('Porto Alegre', 'RS'),
+('Salvador', 'BA'),
+('Fortaleza', 'CE'),
+('Recife', 'PE'),
+('Manaus', 'AM'),
+('Brasília', 'DF'),
+('Goiânia', 'GO'),
+('Natal', 'RN'),
+('Maceió', 'AL'),
+('Teresina', 'PI'),
+('Belém', 'PA'),
+('São Luís', 'MA'),
+('João Pessoa', 'PB'),
+('Campo Grande', 'MS'),
+('Cuiabá', 'MT'),
+('Aracaju', 'SE'),
+('Vitória', 'ES'),
+('Florianópolis', 'SC'),
+('Macapá', 'AP'),
+('Porto Velho', 'RO'),
+('Boa Vista', 'RR'),
+('Palmas', 'TO'),
+('Aracaju', 'SE'),
+('Caxias do Sul', 'RS'),
+('Uberlândia', 'MG'),
+('Campinas', 'SP'),
+('São Bernardo do Campo', 'SP'),
+('Sorocaba', 'SP'),
+('Jundiaí', 'SP'),
+('Santos', 'SP'),
+('Diadema', 'SP'),
+('Caruaru', 'PE'),
+('Maringá', 'PR'),
+('Londrina', 'PR'),
+('Anápolis', 'GO'),
+('Ribeirão Preto', 'SP'),
+('Barueri', 'SP');
+```
