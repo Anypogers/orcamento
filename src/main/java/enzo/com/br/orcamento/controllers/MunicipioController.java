@@ -15,23 +15,31 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/municipios")
 public class MunicipioController {
-    @Autowired
-    private MunicipioService municipioService;
-    @Autowired
-    private MunicipioRepository municipioRepository;
+  @Autowired
+  private MunicipioService municipioService;
+  @Autowired
+  private MunicipioRepository municipioRepository;
 
-    @GetMapping
-    public List<Municipio> listarTodasMunicipio() {
-        return municipioRepository.findAll(Sort.by("nome").ascending());
-    }
-    @GetMapping("/{id}")
-    public ResponseEntity<Municipio> buscarPeloCodigo(@PathVariable int id){
-        Optional<Municipio> municipio = municipioRepository.findById(id);
-        return municipio.isPresent() ? ResponseEntity.ok(municipio.get()) : ResponseEntity.notFound().build();
-    }
-    @PostMapping()
-    public ResponseEntity<Municipio> inserir(@RequestBody Municipio municipio){
-        Municipio municipioSalva = municipioService.salvar(municipio);
-        return ResponseEntity.status(HttpStatus.CREATED).body(municipioSalva);
-    }
+  @GetMapping
+  public List<Municipio> listarTodasMunicipio() {
+    return municipioRepository.findAll(Sort.by("nome").ascending());
+  }
+
+  @GetMapping("/{id}")
+  public ResponseEntity<Municipio> buscarPeloCodigo(@PathVariable int id) {
+    Optional<Municipio> municipio = municipioRepository.findById(id);
+    return municipio.isPresent() ? ResponseEntity.ok(municipio.get()) : ResponseEntity.notFound().build();
+  }
+
+  @PostMapping()
+  public ResponseEntity<Municipio> inserir(@RequestBody Municipio municipio) {
+    Municipio municipioSalva = municipioService.salvar(municipio);
+    return ResponseEntity.status(HttpStatus.CREATED).body(municipioSalva);
+  }
+
+  @PutMapping("/{id}")
+  public ResponseEntity<Municipio> atualizar(@PathVariable int id, @RequestBody Municipio municipio) {
+    Municipio municipioSalva = municipioService.atualizar(id, municipio);
+    return ResponseEntity.ok(municipioSalva);
+  }
 }

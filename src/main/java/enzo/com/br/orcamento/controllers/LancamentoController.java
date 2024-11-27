@@ -36,4 +36,10 @@ public class LancamentoController {
     Lancamento lancamentoSalva = lancamentoService.salvar(lancamento);
     return ResponseEntity.status(HttpStatus.CREATED).body(lancamentoSalva);
   }
+
+  @PutMapping("/{id}")
+  public  ResponseEntity<Lancamento> atualizar(@PathVariable Long id, @RequestBody Lancamento lancamento){
+    Lancamento lancamentoSalva = lancamentoService.atualizar(id, lancamento);
+    return ResponseEntity.ok(lancamentoSalva);
+  }
 }
